@@ -25,7 +25,7 @@ export async function build() {
   for (const a of writing) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(a.slug)) throw new Error('Invalid article slug');
     let section=0;
-    const body = a.body.map(b=>b.type==='heading'?`<h2 id="section-${++section}">${esc(b.text)}</h2>`:b.type==='code'?`<pre><code class="language-${esc(b.language||'text')}">${esc(b.text)}</code></pre>`:b.type==='list'?`<ul>${b.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`:`<p>${esc(b.text)}</p>`).join('');
+    const body = a.body.map(b=>b.type==='heading'?`<h2 id="section-${++section}">${esc(b.text)}</h2>`:b.type==='image'?`<figure><img src="${safe(b.src)}" alt="${esc(b.alt)}" loading="lazy"><figcaption>${esc(b.caption||'')}</figcaption></figure>`:b.type==='code'?`<pre><code class="language-${esc(b.language||'text')}">${esc(b.text)}</code></pre>`:b.type==='list'?`<ul>${b.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`:`<p>${esc(b.text)}</p>`).join('');
     let toc=0;
     await save(`/writing/${a.slug}/`,a.title,`<header class="article-header"><a class="text-link" href="/writing/">← All writing</a><p class="eyebrow">${date(a.date)} · ${Math.max(1,Math.ceil(JSON.stringify(a.body).length/1200))} min read</p><h1>${esc(a.title)}</h1><p class="intro">${esc(a.summary)}</p>${tags(a.tags)}</header><div class="article-layout"><article class="prose">${body}<hr><p>Questions or a different perspective? <a href="/contact/">Get in touch →</a></p></article><aside class="toc" aria-label="On this page"><p class="eyebrow">On this page</p>${a.body.filter(b=>b.type==='heading').map(b=>`<a href="#section-${++toc}">${esc(b.text)}</a>`).join('')}</aside></div>`,a.summary);
   }

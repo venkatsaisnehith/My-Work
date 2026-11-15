@@ -31,7 +31,7 @@ Keep personal application records and immigration documents out of this public r
 
 ## Later improvements, when needed
 
-- Add diagrams with an accessible text explanation and a defined rendering approach.
+- Expand architecture diagrams using the supported image blocks, always with an accessible text explanation.
 - Improve topic discovery as the writing collection grows.
 - Add a real project demo when it can be maintained and evaluated.
 - Consider a managed contact service only if GitHub and email links are insufficient.
