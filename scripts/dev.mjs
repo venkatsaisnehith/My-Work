@@ -7,7 +7,6 @@ const mime = { '.html':'text/html; charset=utf-8', '.css':'text/css', '.js':'tex
 await build();
 createServer(async (req,res) => {
   try {
-    await build();
     let path = resolve(root, '.' + decodeURIComponent(new URL(req.url,'http://localhost').pathname));
     if (path !== root && !path.startsWith(root+sep)) throw new Error('Invalid path');
     if ((await stat(path)).isDirectory()) path = resolve(path,'index.html');
