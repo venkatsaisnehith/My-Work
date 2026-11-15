@@ -1,0 +1,18 @@
+[
+  {
+    "slug": "building-a-research-portfolio",
+    "title": "A place to think, build, and explain",
+    "summary": "The purpose of this portfolio, and the standard I want each technical explanation to meet.",
+    "date": "2026-11-15",
+    "tags": ["Learning in public", "Research practice"],
+    "status": "published",
+    "body": [
+      {"type": "paragraph", "text": "This portfolio begins with a simple aim: make my learning useful and inspectable. I want to connect explanations of AI concepts with working code, diagrams, experiments, and an honest account of what I still do not understand."},
+      {"type": "heading", "text": "From understanding to evidence"},
+      {"type": "paragraph", "text": "A technical article should do more than introduce a tool. It should explain the problem, show how the system fits together, and provide an example that someone else can reproduce. When there are tradeoffs, I want to make those visible."},
+      {"type": "list", "items": ["Define a concrete problem and a baseline.", "Explain the architecture and the choices behind it.", "Link the implementation and describe how to run it.", "Measure behavior and document failure cases.", "Record limitations and the next question to investigate."]},
+      {"type": "heading", "text": "Keeping a durable record"},
+      {"type": "paragraph", "text": "Longer articles will sit alongside short learning notes and project records. GitHub holds the source so that the work stays portable. This first entry describes the intention of the space; technical results will be added as the experiments are completed."}
+    ]
+  }
+]

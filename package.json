@@ -1,0 +1,13 @@
+{
+  "name": "my-work-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
+    "test": "node --test",
+    "check": "npm run build && npm test"
+  }
+}
