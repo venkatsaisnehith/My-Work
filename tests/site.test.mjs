@@ -8,6 +8,7 @@ import { runInNewContext } from 'node:vm';
 
 const root = resolve(import.meta.dirname, '..');
 const output = join(root, 'dist');
+const basePath = new URL(process.env.SITE_URL || 'http://localhost:4321').pathname.replace(/\/$/, '');
 const routes = ['', 'about', 'writing', 'projects', 'research', 'notes', 'contact', 'preferences', 'writing/building-a-research-portfolio'];
 const htmlFiles = (directory) => readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
   const file = join(directory, entry.name);
@@ -33,7 +34,11 @@ test('generated links and local assets resolve inside the build', () => {
     for (const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/gi)) {
       const target = match[1];
       if (/^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(target)) continue;
-      const pathname = decodeURIComponent(target.split(/[?#]/)[0]);
+      let pathname = decodeURIComponent(target.split(/[?#]/)[0]);
+      if (basePath && pathname.startsWith('/')) {
+        assert.ok(pathname.startsWith(basePath + '/'), `Link missing deployment prefix: ${target}`);
+        pathname = pathname.slice(basePath.length);
+      }
       if (!pathname) continue;
       const candidate = pathname.startsWith('/') ? resolve(output, `.${pathname}`) : resolve(file, '..', pathname);
       assert.ok(candidate === output || candidate.startsWith(`${output}/`), `Link escapes build: ${target}`);
@@ -143,4 +148,14 @@ test('reading preferences restore, validate, and persist locally', () => {
   blocked.width.value = 'comfortable';
   assert.doesNotThrow(() => blocked.width.dispatch('change'));
   assert.equal(blocked.documentElement.dataset.readingWidth, 'comfortable');
+});
+
+test('production metadata uses the configured public URL', () => {
+  const base = (process.env.SITE_URL || 'http://localhost:4321').replace(/\/$/, '');
+  assert.ok(readFileSync(join(output, 'index.html'), 'utf8').includes(`rel="canonical" href="${base}/"`));
+  for (const file of ['feed.xml', 'sitemap.xml']) {
+    const text = readFileSync(join(output, file), 'utf8');
+    assert.ok(text.includes(`${base}/writing/building-a-research-portfolio/`));
+    if (base.startsWith('https://')) assert.ok(!text.includes('localhost'));
+  }
 });

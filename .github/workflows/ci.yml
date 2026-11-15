@@ -10,6 +10,8 @@ permissions:
 
 jobs:
   build-and-test:
+    env:
+      SITE_URL: https://venkatsaisnehith.github.io/My-Work
     name: Build and verify portfolio
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -30,3 +32,28 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
+
+      - name: Upload checked Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/
+
+  deploy:
+    name: Publish GitHub Pages
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy verified website
+        id: deployment
+        uses: actions/deploy-pages@v4
