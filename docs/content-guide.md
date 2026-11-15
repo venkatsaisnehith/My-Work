@@ -35,7 +35,7 @@ Use a unique lowercase hyphenated slug. Set `status` to `published` only when th
 
 An effective technical article explains the problem, concept, system structure, code, experiments, bottlenecks, and lessons learned. Separate a proposed design from an implemented system. Label illustrative examples and cite sources for claims that are not your own findings. Include commands, dependencies, and data assumptions when readers should be able to reproduce results.
 
-The supported body blocks are `paragraph`, `heading`, `code`, and `list`. A paragraph or heading uses `text`; code uses `text` and an optional `language`; a list uses `items`. Keep content as text rather than injecting HTML. For diagrams, add support deliberately through the renderer rather than embedding unreviewed markup into text fields.
+The supported body blocks are `paragraph`, `heading`, `code`, `list`, and `image`. A paragraph or heading uses `text`; code uses `text` and an optional `language`; a list uses `items`. Keep content as text rather than injecting HTML. For diagrams, save an SVG or image under `public/diagrams/` and use an image block: `{"type":"image","src":"/diagrams/example.svg","alt":"Describe the complete process","caption":"Optional caption"}`. Public asset paths start at `/`, without the `public` prefix.
 
 ## Projects
 

@@ -8,3 +8,5 @@
 @media print{.nav,.menu-toggle,.toc,.actions,.filter-bar,.contact-form,.skip-link{display:none!important}.shell{max-width:none;padding:0}.hero,.article-header{padding:25px 0}.article-layout{display:block}.prose{max-width:none}.footer{padding:15px 0}body{background:white;color:black}}
 
 .brand>span{display:block;font-size:.69rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:var(--muted);margin-top:7px}.toc>a{display:block;margin:12px 0}.footer>div:nth-child(2){display:flex;gap:14px;flex-wrap:wrap;align-content:start}.panel[href]{text-decoration:none}.panel[href]:hover{border-color:var(--accent)}main{min-height:65vh}.filter-bar>label{width:100%;font-size:.8rem}.entry>span[aria-hidden]{display:none}.grid .panel .eyebrow{color:var(--accent)}
+
+.prose figure{margin:2em 0}.prose figure img{display:block;width:100%;border:1px solid var(--line);border-radius:3px}.prose figcaption{font-family:system-ui,sans-serif;font-size:.75rem;color:var(--muted);margin-top:10px}
