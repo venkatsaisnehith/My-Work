@@ -44,12 +44,14 @@ See the [content guide](docs/content-guide.md) for field descriptions and exampl
 
 ## Hosting
 
-Hosting has deliberately not been selected or deployed. The output is a single static website that can be served by a static host; articles do not need separate servers.
+Public website: **https://venkatsaisnehith.github.io/My-Work/**
 
-Set `SITE_URL` to the final public origin when building for production so canonical links, the sitemap, and the feed use the correct address. Without it, development uses localhost.
+GitHub Pages serves the complete portfolio. Every push to `main` runs the build and tests, uploads the checked output, and deploys it through the `github-pages` environment. Branches and pull requests run checks without publishing. Deployment history is visible in the repository’s Actions tab. No hosting secrets or separate server are required.
+
+Set `SITE_URL` to the final public URL (including `/My-Work` for the project site) when building for production so canonical links, the sitemap, and the feed use the correct address. Without it, development uses localhost.
 
 ```sh
-SITE_URL=https://your-domain.example npm run build
+SITE_URL=https://venkatsaisnehith.github.io/My-Work npm run check
 ```
 
 GitHub stores the source and content. Keep a separate local clone as a backup. Secrets and private personal records should never be added to this public repository.
@@ -61,6 +63,10 @@ GitHub stores the source and content. Keep a separate local clone as a backup. S
 - Add a reviewed public CV and its link.
 - Set the email and LinkedIn links you want to publish.
 - Add the first reproducible project with code, measurements, and limitations.
-- Choose hosting, set `SITE_URL`, and verify the deployed links.
+- Verify the live site after updating content.
 
 The [roadmap](docs/roadmap.md) describes a manageable publishing routine and possible later improvements.
+
+### Adding a personal domain later
+
+Configure the domain in repository Settings → Pages and update DNS as GitHub instructs. Change `SITE_URL` in `.github/workflows/ci.yml` to the new HTTPS address. The build derives the link prefix from that URL, so a root domain automatically removes `/My-Work` from navigation and assets. Keep domain registration separate from the public repository.
